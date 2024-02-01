@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -43,5 +45,35 @@ class AdminController extends Controller
         $category->delete();
         return redirect()->back()->with('success','Categroy delete success');
         
+    }
+    ///Product
+    public function viewproduct()
+    {
+        $product = Product::all();
+       return view ('product.index',compact('product'))->with('i');
+    }
+    public function create(Request $request)
+    {
+        $category = Category::all();
+       return view('product.add',compact('category'));
+    }
+    public function storeproduct(Request $request)
+    {
+      
+        $input = $request->all();
+        if($request->hasFile('image')) {
+            $originalName = $request->file('image')->getClientOriginalExtension();
+            $fileName = pathinfo($originalName , PATHINFO_FILENAME);
+            $extenstion = $request->file('image')->getClientOriginalExtension();
+            $fileName = $fileName . '' . time() . '.' . $extenstion;
+            // $request->file('image')->move(public_path('images') , $fileName); //If we're want to store image in folder publice path//
+            $path=$request->file('image')->store('images','public');
+            $url = asset('images/'.$fileName);
+            $input['image']=$path;
+         }
+      
+        Product::create($input);
+       return redirect()->back()->with('success',"Product create success");
+     
     }
 }
