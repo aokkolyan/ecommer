@@ -31,50 +31,56 @@
                     <p>{{ $message }}</p>
                 </div>
             @endif
-            <form action="{{ route('product.create') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.update',$product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-12 grid-margin stretch-card ">
                     <div class="card text-white">
                         <div class="card-body">
-                            <h4 class="card-title">Add product</h4>
+                            <h4 class="card-title">Edit product</h4>
                             <p class="card-description"> </p>
                             <form class="forms-sample ">
                                 <div class="form-group ">
                                     <label for="name">Title</label>
-                                    <input type="text" class="form-control  text-white" name="title" placeholder="Name">
+                                    <input type="text" class="form-control  text-white" name="title" value="{{ $product->title }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Price</label>
-                                    <input type="number" class="form-control text-white" name="price">
+                                    <input type="number" class="form-control text-white" name="price" value="{{ $product->price }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Discoun Price</label>
-                                    <input type="number" class="form-control text-white" name="discount_price">
+                                    <input type="number" class="form-control text-white" name="discount_price" value="{{ $product->discount_price }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="quatity">Quatity</label>
-                                    <input type="number" class="form-control text-white" name="quatity">
+                                    <input type="number" class="form-control text-white" name="quatity" value="{{ $product->quatity }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="category">Category</label>
                                     <select class="form-control text-white" name="category">select
-                                        <option select="" value="">Select category</option>
+                                        <option  value="{{ $product->category }}">{{ $product->category }}</option>
                                         @foreach ($category as $cat)
                                             <option value="{{ $cat->category_name }}">{{ $cat->category_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                              
                                 <div class="form-group">
-                                    <label for="image">Image</label>
+                                    <label for="image">Current Image</label>
+                                    <div class="input-group mb-3"> 
+                                        <img src="{{ asset('storage/'.$product->image) }}" class="img-thumbnail"  alt="Cinque Terre" width="100px;" height="100px">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">New Image</label>
                                     <div class="input-group mb-3"> 
                                         <input type="file" class="form-control" id="inputGroupFile02" name="image">
                                         <label class="input-group-text" for="inputGroupFile02">Upload</label>
                                     </div>
-
                                 </div>
                                 <div class="form-group">
                                     <label for="decription">Description</label>
-                                    <textarea class="form-control text-white" name="decription" rows="4"></textarea>
+                                    <textarea class="form-control text-white" name="decription" rows="4">{{ $product->decription }}</textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
                                 <a class="btn btn-danger" href="{{ route('product.view') }}">Cancel</a>
@@ -91,46 +97,5 @@
 </body>
 
 </html>
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-  
-    $('#inputImage').change(function(){    
-        let reader = new FileReader();
-   
-        reader.onload = (e) => { 
-            $('#preview-image').attr('src', e.target.result); 
-        }   
-  
-        reader.readAsDataURL(this.files[0]); 
-     
-    });
-  
-    $('#image-upload').submit(function(e) {
-           e.preventDefault();
-           let formData = new FormData(this);
-           $('#image-input-error').text('');
-  
-           $.ajax({
-              type:'POST',
-              url: "{{ route('product.create') }}",
-               data: formData,
-               contentType: false,
-               processData: false,
-               success: (response) => {
-                 if (response) {
-                   this.reset();
-                   alert('Product has been uploaded successfully');
-                 }
-               },
-               error: function(response){
-                    $('#image-input-error').text(response.responseJSON.message);
-               }
-           });
-    });
-      
-</script>
+
       

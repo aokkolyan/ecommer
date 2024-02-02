@@ -63,12 +63,14 @@
                                 <td>{{ $pro->decription }}</td>
                                 <td>{{ $pro->created_at->format('y-m-d') }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-danger">delete</a>
+                                    <a href="{{ url('product_update',$pro->id) }}" class="btn btn-success">update</a>
+                                </td>
+                                <td>
+                                    <a href="{{ url('product_delete',$pro->id) }}" class="btn btn-danger" >delete</a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-                   
                 </table>
             </div>
         </div>    

@@ -108,11 +108,11 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form class="forms-sample" action="{{ route('categories.update',$cat->id) }}" method="POST" >
+                        <form class="forms-sample" action="{{ route('categories.update') }}" method="POST" >
                           @csrf
                             <div class="form-group">
                                 <label for="category_name">Category Name</label>
-                                <input type="text" class="form-control text-white" required  name="category_name" value="{{ $cat->category_name }}">
+                                <input type="text" class="form-control text-white" required  name="category_name" >
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         </form>

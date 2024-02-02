@@ -35,9 +35,12 @@ Route::get('/view-category',[AdminController::class,'viewCategory'])->name('view
 Route::post('/create',[AdminController::class,'store'])->name('create-category');
 Route::delete('/categories/{category}',[AdminController::class,'destroy'])->name('categories.destroy');
 Route::get('/categories',[AdminController::class,'edit'])->name('categories.edit');
-Route::put('/categories/update/{id}',[AdminController::class,'update'])->name('categories.update');
+Route::put('/categories/update',[AdminController::class,'update'])->name('categories.update');
 
 //Product 
 Route::get('/view-product',[AdminController::class,'viewproduct'])->name('product.view');
 Route::get('/product-create',[AdminController::class,'create'])->name('product.store');
 Route::post('/product-create/create',[AdminController::class,'storeproduct'])->name('product.create');
+Route::get('/product_delete/{id}',[AdminController::class,'product_delete']);
+Route::get('/product_update/{id}',[AdminController::class,'product_edit']);
+Route::post('/product_update/{id}',[AdminController::class,'product_update'])->name('product.update');

@@ -76,4 +76,42 @@ class AdminController extends Controller
        return redirect()->back()->with('success',"Product create success");
      
     }
+    public function product_delete($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->back()
+        ->with('success','Product deleted successfully');
+
+    }
+    public function product_edit($id)
+    {
+        $product = Product::find($id);
+        $category = Category::all();
+       return view('product.edit',compact('product','category'));
+    }
+    public function product_update(Request $request , $id)
+    {
+        $product = Product::find($id);
+        $input   = $request->all();
+        if($request->hasFile('image')) {
+            $originalName = $request->file('image')->getClientOriginalExtension();
+            $fileName = pathinfo($originalName , PATHINFO_FILENAME);
+            $extenstion = $request->file('image')->getClientOriginalExtension();
+            $fileName = $fileName . '' . time() . '.' . $extenstion;
+            // $request->file('image')->move(public_path('images') , $fileName); //If we're want to store image in folder publice path//
+            $path=$request->file('image')->store('images','public');
+            $url = asset('images/'.$fileName);
+            $input['image']=$path;
+         } else {
+            unset($input['image']);
+         }
+        //  dd($product);
+
+         $product->update($input);
+         return redirect()->back()
+         ->with('success','Product update successfully');
+ 
+
+    }
 }
