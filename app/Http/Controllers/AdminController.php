@@ -46,7 +46,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success','Categroy delete success');
         
     }
-    ///Product
+        //  Product 
     public function viewproduct()
     {
         $product = Product::all();
@@ -111,7 +111,11 @@ class AdminController extends Controller
          $product->update($input);
          return redirect()->back()
          ->with('success','Product update successfully');
- 
 
+    }
+    public function product_details($id)
+    {
+        $product = Product::find($id);
+        return view('product.product_detail',compact('product'));
     }
 }

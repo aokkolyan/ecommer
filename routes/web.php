@@ -44,3 +44,4 @@ Route::post('/product-create/create',[AdminController::class,'storeproduct'])->n
 Route::get('/product_delete/{id}',[AdminController::class,'product_delete']);
 Route::get('/product_update/{id}',[AdminController::class,'product_edit']);
 Route::post('/product_update/{id}',[AdminController::class,'product_update'])->name('product.update');
+Route::get('/product_details/{id}',[AdminController::class,'product_details']);

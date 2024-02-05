@@ -22,8 +22,10 @@
       <link href="{{ asset('home/css/responsive.css') }}" rel="stylesheet" />
    </head>
    <body>
+      
      @include('home.header');
       <!-- why section -->
+    
       @include('home.slider');
       <!-- end why section -->
       
