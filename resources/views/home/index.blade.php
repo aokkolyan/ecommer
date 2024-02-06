@@ -23,25 +23,25 @@
    </head>
    <body>
       
-     @include('home.header');
+     @include('home.header')
       <!-- why section -->
-    
-      @include('home.slider');
+      {{--  @include('home.slide')  --}}
+      @include('home.slider')
       <!-- end why section -->
       
       <!-- arrival section -->
-      @include('home.new_arrival');
+      @include('home.new_arrival')
       <!-- end arrival section -->
       
       <!-- product section -->
-      @include('home.product');
+      @include('home.product')
       <!-- end product section -->
 
       <!-- subscribe section -->
-      @include('home.section');
+      @include('home.section')
       <!-- end client section -->
       <!-- footer start -->
-      @include('home.footer');
+      @include('home.footer')
       <!-- jQery -->
       <script src="{{ asset('home/js/jquery-3.4.1.min.js') }}"></script>
       <!-- popper js -->
