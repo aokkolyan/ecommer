@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -160,4 +161,40 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+    //////////////////////////////////Order Product////////////////////////////
+    public function cashorder()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $data = Cart::where('user_id','=',$user_id)->get();
+        
+        foreach ($data as $data)
+        {
+            $order = new Order();
+
+            $order->name = $data->name;
+            $order->email = $data->email;
+            $order->phone = $data->phone;
+            $order->address = $data->address;
+            $order->user_id = $data->user_id;
+            $order->quantity = $data->quantity;
+            $order->product_title = $data->product_title;
+            $order->price = $data->price;
+            $order->image = $data->image;
+            $order->product_id = $data->product_id;
+
+            $order->payment_status = "Cash on delivery";
+            $order->delivery_status = "Process delivery";
+
+          
+            $order->save();
+            $cart_id = $data->id;
+            $cart = Cart::find($cart_id);
+            $cart->delete();
+           
+        }
+
+        return redirect()->back()->with('success','We Received your order. We will contact with you soon Thanks you');
+    }
+
 }

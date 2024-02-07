@@ -50,3 +50,6 @@ Route::get('/product_details/{id}',[AdminController::class,'product_details']);
 Route::get('cart',[AdminController::class,'cart'])->name('cart');
 Route::post('/add-to-cart/{id}',[AdminController::class,'addtocart'])->name('add.to.cart');
 Route::get('/remove-cart/{id}',[AdminController::class,'removecart'])->name('remove.cart');
+
+//Orders
+Route::get('/cash-order',[AdminController::class,'cashorder'])->name('cash.order');
