@@ -77,8 +77,8 @@
                 <td colspan="5" class="text-right">
                     <a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue
                         Shopping</a>
-                    <a href="{{ route('cash.order') }}" class="btn btn-success">Cash on Delivery</a>
-                    <a class="btn btn-success">Pay Using cart</a>
+                    <a href="{{ route('cash.order') }}" class="btn btn-success"><i class="fa fa-solid fa-truck ">Cash on Delivery</a></i>
+                    <a href="{{ route('stripe',$total) }}" class="btn btn-success text-white p-2">Pay Using cart</a>
                 </td>
             </tr>
         </tfoot>

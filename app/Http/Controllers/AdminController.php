@@ -196,5 +196,20 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success','We Received your order. We will contact with you soon Thanks you');
     }
+    public function order()
+    {
+        $order = Order::all();
+        return view("order.index",compact('order'))->with('i');
+    }
+    public function updateDelivery(Request $request , $id)
+    {
+       $order = Order::find($id);
+       $order->delivery_status = "delivered";
+    
+       $order->save();
+
+       return redirect()->back();
+      
+    }
 
 }
