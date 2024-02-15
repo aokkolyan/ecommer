@@ -31,7 +31,14 @@
                 <p>{{ $message }}</p>
             </div>
         @endif
-    
+        <ul class="navbar-nav w-50">
+            <li class="nav-item w-100">
+              <form  action="{{ route('search.order') }}" method="get" class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                <input type="text" value=" {{  isset($search) ? $search : '' }}" class="form-control" name="search" placeholder="Search products" >
+                <button type="submit" class="btn btn-sm btn-primary">search</button>
+              </form>
+            </li>
+          </ul>
             <div class="table-responsive">
                 <table class="table table-dark text-white ">
                     <thead class="table-primary">
@@ -47,11 +54,12 @@
                             <th>Payment status</th>
                             <th>Delivery status</th>  
                             <th>Delivered</th>  
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>      
                      
-                        @foreach ($order as $orders)
+                        @forelse ($order as $orders)
                    
                         <tr>
                             <td>{{ ++$i }}</td>
@@ -97,10 +105,22 @@
                                 <p>Delivered</p>
 
                                 @endif
-                               
+                              
                             </td>
+                            <td>
+                                <a href="{{ route('printPdf',$orders->id) }}" class="badge badge-outline-danger">PDF</a>
+                            </td>
+
                         </tr>
-                        @endforeach
+
+                        @empty
+                        <tr>
+                            <td colspan="16">Data Not found !!</td>
+                        </tr>
+
+
+
+                        @endforelse
                      
                     </tbody>
                 </table>

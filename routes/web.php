@@ -55,6 +55,8 @@ Route::get('/remove-cart/{id}',[AdminController::class,'removecart'])->name('rem
 Route::get('/cash-order',[AdminController::class,'cashorder'])->name('cash.order');
 Route::get('/order',[AdminController::class,'order'])->name('order');
 Route::get('/delivery/{id}',[AdminController::class,'updateDelivery'])->name('delivery.update');
+Route::get('/printPdf/{id}',[AdminController::class,'printPdf'])->name('printPdf');
+Route::get('/search.product',[AdminController::class,'searchOrder'])->name('search.order');
 
 //Using Spripe
 Route::get('/stripe/{total}',[HomeController::class,'stripe'])->name('stripe');

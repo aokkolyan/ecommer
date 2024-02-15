@@ -6,9 +6,11 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+// use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class AdminController extends Controller
 {
@@ -210,6 +212,24 @@ class AdminController extends Controller
 
        return redirect()->back();
       
+    }
+    public function printPdf($id)
+    {
+       $order = Order::find($id);
+       $pdf = PDF::loadView('admin.pdf',compact('order'));
+
+       return $pdf->download('order_details.pdf');
+    }
+    public function searchOrder(Request $request)
+    {
+        $search = $request->input('search');
+        $order= Order::where('name','LIKE',"%$search%")
+                ->orWhere('email','LIKE','%$searcg%')
+                ->orWhere('phone','LIKE','%$search%')
+                ->orWhere('product_title','LIKE',"%$search%")
+                ->orWhere('address','LIKE',"%$search%")
+                ->get();
+        return view("order.index",compact('search','order'))->with('i');
     }
 
 }
