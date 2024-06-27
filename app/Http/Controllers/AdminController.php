@@ -17,7 +17,8 @@ class AdminController extends Controller
     public function viewCategory()
     {
         $category = Category::all();
-        return view('category.index', compact('category'))->with('i');
+        $product = Product::all();
+        return view('category.index', compact('category','product'))->with('i');
     }
     public function store(Request $request)
     {
@@ -222,6 +223,7 @@ class AdminController extends Controller
     }
     public function searchOrder(Request $request)
     {
+        
         $search = $request->input('search');
         $order= Order::where('name','LIKE',"%$search%")
                 ->orWhere('email','LIKE','%$searcg%')

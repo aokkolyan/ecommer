@@ -34,7 +34,7 @@
         <ul class="navbar-nav w-50">
             <li class="nav-item w-100">
               <form  action="{{ route('search.order') }}" method="get" class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                <input type="text" value=" {{  isset($search) ? $search : '' }}" class="form-control" name="search" placeholder="Search products" >
+                <input type="text" value=" {{  isset($search) ? $search : '' }}" class="form-control text-white" name="search" placeholder="Search products" >
                 <button type="submit" class="btn btn-sm btn-primary">search</button>
               </form>
             </li>

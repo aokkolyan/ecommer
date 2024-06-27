@@ -61,3 +61,7 @@ Route::get('/search.product',[AdminController::class,'searchOrder'])->name('sear
 //Using Spripe
 Route::get('/stripe/{total}',[HomeController::class,'stripe'])->name('stripe');
 Route::post('stripe/{total}', [HomeController::class,'stripePost'])->name('stripe.post');
+
+//Comment and Replies//
+Route::post('/comment',[HomeController::class,'comment'])->name('comment.store');
+Route::post('/reply',[HomeController::class,'reply'])->name('reply.store');

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Comment;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -21,7 +23,9 @@ class HomeController extends Controller
     public function index()
     {
         $product = Product::all();
-        return view('home.index',compact('product'));
+        $comment = Comment::orderby('id','desc')->get();
+        $reply = Reply::all();
+        return view('home.index',compact('product','comment','reply'));
     }
     public function redirect()
     {
@@ -30,6 +34,7 @@ class HomeController extends Controller
         if($usertype =='1') {
             return view('admin.home',compact('product'));
         } else {
+           
            return view ('home.index'); 
         }
     }
@@ -87,6 +92,40 @@ class HomeController extends Controller
         return back();
 
     }
+    //Comment and reply//
+    public function comment(Request $request)
+    {
+        if(Auth::user()) {
+            $comment = new Comment();
+            $comment->name = Auth::user()->name;
+            $comment->user_id = Auth::user()->id;
+            $comment->comment = $request->comment;
+          
+            $comment->save();
+            return redirect()->back();
+        } 
+        else 
+        {
+            return redirect('login');
+        }
+      
+    }
 
+    public function reply ( Request $request)
+    {
+      if(Auth::user()) {
+        $reply = new Reply();
+        $reply->name = Auth::user()->name;
+        $reply->user_id = Auth::user()->id;
+        $reply->comment_id = $request->commentId;
+        $reply->reply   = $request->reply;
+    
+        $reply->save();
+        return redirect()->back();
+      }
+      else{
+        return redirect('login');
+      }
+    }
     
 }
